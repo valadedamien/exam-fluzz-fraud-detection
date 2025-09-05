@@ -1,0 +1,4 @@
+/.idea
+/.venv
+
+/01_data/creditcard.csv
