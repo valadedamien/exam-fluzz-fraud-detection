@@ -1,0 +1,32 @@
+version: '3.8'
+
+networks:
+  part_4_ml-network:
+    external: true  # Utilise le réseau de PART_4
+
+services:
+  fraud-api:
+    build: .
+    container_name: fraud-detection-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MLFLOW_TRACKING_URI=http://part_4-mlflow-1:5000
+      - WEBHOOK_SECRET=fraud-detection-webhook-secret-2024
+      - ADMIN_SECRET=fraud-detection-admin-secret-2024
+      - MODEL_CHECK_INTERVAL=300
+      - SHARED_MODELS_PATH=/shared/models
+      - PROMETHEUS_PUSHGATEWAY_URL=http://part_4-pushgateway-1:9091
+      - HIGH_AMOUNT_THRESHOLD=10000.0
+      - FRAUD_PROBABILITY_THRESHOLD=0.5
+    volumes:
+      - ../PART_4/data:/shared/models:ro  # Volume partagé en lecture seule
+    networks:
+      - part_4_ml-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
