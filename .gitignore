@@ -3,3 +3,6 @@
 
 /01_data/creditcard.csv
 /01_data/creditcard_augmented.csv
+
+# Fichiers de données volumineux
+PART_4/data/*
