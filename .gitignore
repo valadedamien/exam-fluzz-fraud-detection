@@ -2,3 +2,4 @@
 /.venv
 
 /01_data/creditcard.csv
+/01_data/creditcard_augmented.csv
