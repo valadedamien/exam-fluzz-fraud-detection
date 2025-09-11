@@ -13,3 +13,6 @@ seaborn>=0.11.0
 # Jupyter environment
 jupyter>=1.0.0
 ipykernel>=6.0.0
+
+# SDV for synthetic data generation
+sdv>=1.0.0
